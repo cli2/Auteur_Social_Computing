@@ -1,8 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Upload a video</h1>
+  <!--h1>Upload a video</h1>
   <p class="important">
     Welcome on my awesome homepage
-  </p>
+  </p-->
+  <!--Try a form-->
+  <div class="row">
+  	<div class="col-lg-6">
+  		<form name="uploadForm" id="uploadForm" method="POST" action="{{ url_for('uploadvideo')}}" enctype="multipart/form-data" novalidate>
+  			<div class="form-group">
+  				<label for="exampleFormControlInput1">Title</label>
+  				<input type="text" class="form-control" name="title" id="title" placeholder="title">
+  			</div>
+  			<div class="form-group">
+  				<label for="exampleFormControlTextarea1">Description</label>
+  				<textarea class="form-control" name="description" id="description" rows="3"></textarea>
+  			</div>
+  			<div class="form-group">
+  				<label for="inputFile">Upload Video</label>
+  				<input type="file" name="inputFile">
+  			</div>
+  			<div class="form-group">
+             	<button type="submit" class="btn btn-primary" id="sendMessageButton">Upload</button>
+            </div>
+  		</form>
+	</div>
+  </div>
 {% endblock %}

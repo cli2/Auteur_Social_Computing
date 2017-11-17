@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>This is a project page</h1>
+<h2>Below are the videos of this project</h2>
+<div class="container">
+  {% for video in videos %}
+  <div class="row">
+    <div class="col-md-4 card">
+      <img class="card-img-top" src="{{url_for('static',filename='video.png')}}" alt="Card image cap">
+    </div>
+    <div class="col-md-8">
+      <a href="{{url_for('video', video_title=video.title)}}">
+        <h3>{{video.title}}</h3>
+        <p><small>Uploaded on {{video.date.strftime('%B %d, %Y')}}</small></p>
+        <p>{{video.description}}</p>
+      </a>
+    </div>
+  </div>
+  {% endfor %}
+{% endblock %}
+
