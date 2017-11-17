@@ -1,7 +1,41 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p>
-  This is Our HOME PAGE!!
-</p>
+
+<div class="jumbotron jumbotron-fluid">
+	<div class="container">
+		<h1 class="display-3">Proejct Name goes here</h1>
+		<p class="lead">This is the image for the best project.</p>
+	</div>
+</div>
+<div class="container">
+  <h3>Recent Updates</h3>
+  <div class="row">
+    {% for v in videos %}
+    <div class="col-md-3 card">
+      <img class="card-img-top" src="{{url_for('static',filename='video.png')}}" alt="Card image cap">
+      <div class="card-body">
+        <a href="{{url_for('video', video_title=v.title)}}">
+          <h4 class="card-title">{{v.title}}</h4>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<div class="container">
+  <h3>Popular Projects</h3>
+  <div class="row">
+    {% for v in videos %}
+    <div class="col-md-3 card">
+      <img class="card-img-top" src="{{url_for('static',filename='video.png')}}" alt="Card image cap">
+      <div class="card-body">
+        <a href="{{url_for('video', video_title=v.title)}}">
+          <h4 class="card-title">Project Title Here</h4>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}

@@ -5,6 +5,7 @@ from flask_script import Manager #import flask-script
 from flask_sqlalchemy import SQLAlchemy
 from flask import flash
 import os
+import sys
 from flask_wtf import Form
 from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import Required
@@ -13,7 +14,8 @@ from datetime import datetime
 #############################
 ##          Config         ##
 #############################
-
+reload(sys)  
+sys.setdefaultencoding('latin-1')
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__) #Pass the __name__ argument to the Flask application constructor
 manager = Manager(app)
@@ -59,7 +61,8 @@ db = SQLAlchemy(app)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    videos= Video.query.order_by(Video.date.desc()).all()
+    return render_template('index.html',videos=videos)
 
 @app.route('/project')
 def project():
