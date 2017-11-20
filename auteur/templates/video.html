@@ -2,103 +2,70 @@
 {% block content %}
 <div class="container">
   <div class="row">
+    <!-- VIDEO -->
     <div class="col-md-9 card">
-      <img class="card-img-top" src="{{video.video_file}}" alt="Card image cap">
+      <video class="card-img-top" src="/../static/vid/{{video.vid_name}}" controls controlsList="nodownload"></video>
       <div class="card-body">
-        <h4 class="card-title">{{video.title}}</h4>
+        <h4 class="card-title video-title">{{video.title}}</h4>
         <p class="card-text"><small class="text-muted">Uploaded on {{video.date.strftime('%B %d, %Y')}}</small></p>
         <p class="card-text">{{video.description}}</p>
       </div>
     </div>
-    <div class="col-md-3">
+
+    <!-- CHAT -->
+    <div class="col-md-3 card">
       <div class="panel panel-primary">
+        <!-- CHAT HEADING -->
         <div class="panel-heading" id="accordion">
-          <span class="glyphicon glyphicon-comment">Chat</span>
+          <h4 class="chat-h4">Chat</h4>
           <div class="btn-group pull-right">
-            <a type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-              <span class="glyphicon glyphicon-chevron-down"></span>
+            <a class="btn btn-default btn-xs chat-button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+              <i class="fa fa-chevron-down"></i>
             </a>
           </div>
         </div>
+        <!-- CHAT COLLAPSE -->
         <div class="panel-collapse collapse" id="collapseOne">
           <div class="panel-body">
-            <ul class="chat">
-              <li class="left clearfix"><span class="chat-img pull-left">
-                <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
-              </span>
-              <div class="chat-body clearfix">
-                <div class="header">
-                  <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                    <span class="glyphicon glyphicon-time"></span>12 mins ago</small>
-                  </div>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                    dolor, quis ullamcorper ligula sodales.
-                  </p>
-                </div>
-              </li>
-              <li class="right clearfix"><span class="chat-img pull-right">
-                <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
-              </span>
-              <div class="chat-body clearfix">
-                <div class="header">
-                  <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
-                  <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                  dolor, quis ullamcorper ligula sodales.
-                </p>
-              </div>
-            </li>
-            <li class="left clearfix"><span class="chat-img pull-left">
-              <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
-            </span>
-            <div class="chat-body clearfix">
-              <div class="header">
-                <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                  <span class="glyphicon glyphicon-time"></span>14 mins ago</small>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                  dolor, quis ullamcorper ligula sodales.
-                </p>
-              </div>
-            </li>
-            <li class="right clearfix"><span class="chat-img pull-right">
-              <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
-            </span>
-            <div class="chat-body clearfix">
-              <div class="header">
-                <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>15 mins ago</small>
-                <strong class="pull-right primary-font">Bhaumik Patel</strong>
-              </div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                dolor, quis ullamcorper ligula sodales.
-              </p>
+            <!-- COMMENTS - MUST ADD FOR STATEMENT -->
+            <div class="chat-comment">
+              <p class="chat-name">Name</p>
+              <p class="chat-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.</p>
             </div>
-          </li>
-        </ul>
+            <div class="chat-comment">
+              <p class="chat-name">Name</p>
+              <p class="chat-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.</p>
+            </div>
+            <div class="chat-comment">
+              <p class="chat-name">Name</p>
+              <p class="chat-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.</p>
+            </div>
+            <div class="chat-comment">
+              <p class="chat-name">Name</p>
+              <p class="chat-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.</p>
+            </div>
       </div>
+
+      <!-- SEND -->
       <div class="panel-footer">
         <div class="input-group">
-          <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+          <input id="btn-input" type="text" class="form-control input-sm" placeholder="What do you think?" />
           <span class="input-group-btn">
-            <button class="btn btn-warning btn-sm" id="btn-chat">
-            Send</button>
+            <button class="btn btn-warning btn-sm" id="btn-chat">Send</button>
           </span>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<!-- OTHER CLIPS -->
 <div class="container">
   <h3>Other Clips</h3>
   <div class="row">
     {% for v in videos %}
     <div class="col-md-3 card">
-      <img class="card-img-top" src="data:;base64,{{v.video_file}}" alt="Card image cap">
+      <img class="card-img-top" src="{{url_for('static',filename='img/video.png')}}" alt="Card image cap">
       <div class="card-body">
         <a href="{{url_for('video', video_title=v.title)}}">
           <h4 class="card-title">{{v.title}}</h4>

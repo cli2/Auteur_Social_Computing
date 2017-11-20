@@ -1,0 +1,219 @@
+/* Global Styles */
+h1,h2,h3,h4,h5,h6,p{
+	font-family:'Raleway', sans-serif;
+}
+h1{
+	font-weight:600;
+	text-transform:uppercase;
+	color:#6B818C !important;
+}
+h2,h3{
+	font-weight:500;
+	text-transform:uppercase;
+	color:#6B818C !important;
+}
+h4,h5,h6{
+	font-weight:500;
+	color:#6B818C !important;
+}
+p{
+	font-weight:300;
+	color:#84828F !important;
+}
+input,textarea{
+	font-weight:300;
+	color:#84828F !important;
+}
+
+/* Navigation */
+.navbar-brand{
+	font-family:'Lobster Two', cursive;
+	font-weight:700;
+	font-size:2rem;
+	color:#6B818C !important;
+	margin-left: 1vw;
+}
+.search-form{
+	justify-content:space-between;
+	margin-left: auto;
+	margin-right: auto;
+}
+.search-box{
+	width:48vw !important;
+}
+.search-form button{
+	border-color:#6B818C !important;
+	color:#6B818C !important;
+}
+.search-form button:hover{
+	background-color: #6B818C !important;
+	color:#FFFFFF !important;
+}
+.navbar-nav{
+	margin-left: auto;
+	margin-right:1vw !important;
+	justify-content: flex-end;
+}
+.nav-item{
+	margin-right:2vw;
+}
+.nav-item a:hover{
+	color:#6B818C !important;
+}
+
+/* Landing Page */
+.jumbotron{
+	background-image:url("../img/projectbg.jpg");
+	background-size:cover;
+}
+.jumbotron .container h1{
+	color:#FFFFFF !important;
+}
+.jumbotron .container p{
+	color:#FFFFFF !important;
+}
+.jumbotron .container p a{
+	background-color: #FFFFFF !important;
+	color: #6B818C !important;
+	border:#6B818C !important;
+}
+.jumbotron .container p a:hover{
+	background-color: #6B818C !important;
+	color: #FFFFFF !important;
+}
+.container{
+	margin-top:2rem;
+	margin-bottom:2rem;
+}
+.card{
+	border:none;
+}
+.card-body{
+	padding-left:0;
+}
+.card-title:hover{
+	text-decoration:underline;
+	text-decoration-color:#6B818C !important;
+}
+.card-text{
+	color:#84828F !important;
+}
+.card-italic{
+	font-style:italic;
+}
+
+/* Upload Form */
+form{
+	margin-top:2rem;
+	margin-left:2rem;
+}
+label{
+	font-family:'Raleway', sans-serif;
+	font-size: 1.5rem;
+	font-weight:500;
+	text-transform:uppercase;
+	color:#6B818C !important;
+	margin-bottom:0.5rem;
+}
+input::placeholder, textarea::placeholder{
+	font-family:'Raleway', sans-serif;
+	font-weight:200;
+	font-style: italic;
+	color:#84828F !important;
+}
+.form-group{
+	margin-bottom:2rem;
+}
+.upload{
+	display:block;
+	font-family:'Raleway', sans-serif;
+	font-weight:200;
+	color:#84828F !important;
+}
+
+/* Video Page */
+.video-title{
+	font-size:1.75rem;
+	text-transform:uppercase;
+	margin-bottom:0.1rem;
+}
+.text-muted{
+	font-style: italic;
+}
+
+/* Video Chat */
+.panel{
+	background-color:#6B818C !important;
+}
+.panel-heading{
+	padding:0.5rem;
+	border-bottom:0.1rem #FFFFFF solid;
+}
+.chat-h4{
+	display:inline-block;
+	font-family:'Raleway', sans-serif;
+	font-weight:300;
+	text-transform:uppercase;
+	color:#FFFFFF !important;
+	margin-bottom:0;
+}
+.chat-button{
+	padding:0;
+}
+.fa-chevron-down{
+	color:#FFFFFF !important;
+	padding:0;
+	background-color: transparent;
+}
+.panel-collapse{
+	height:50vh;
+}
+.panel-body{
+	height:50vh;
+	overflow-y: scroll;
+}
+.chat-comment{
+	padding:0.5rem;
+}
+.chat-name{
+	font-family:'Raleway', sans-serif;
+	font-size:1.1rem;
+	font-weight:100;
+	text-transform:uppercase;
+	color:#FFFFFF !important;
+	margin-bottom:0;
+}
+.chat-description{
+	font-family:'Raleway', sans-serif;
+	font-weight:100;
+	font-style:italic;
+	color:#FFFFFF !important;
+}
+.panel-footer{
+	border-top: 0.25rem #FFFFFF solid;
+}
+.panel-footer .input-group input{
+	background-color:#FFFFFF !important;
+}
+.panel-footer .input-group input::placeholder{
+	font-family:'Raleway', sans-serif;
+	font-weight:100;
+	font-style: italic;
+	color:#6B818C !important;
+}
+.input-group-btn button{
+	font-family:'Raleway', sans-serif;
+	font-weight:100;
+	text-transform:uppercase;
+	color:#FFFFFF !important;
+	background-color:#6B818C !important;
+	border:none;
+}
+
+
+
+
+
+
+
+
