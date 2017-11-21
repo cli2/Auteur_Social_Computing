@@ -7,13 +7,14 @@
     </div>
     <div class="col-md-6">
       <h1>{{project.name}}</h1>
+      <h2>{{project.author}}</h2>
       <p>{{project.project_description}}</p>
     </div>
   </div>
 </div>
 <div class="container">
   <h2>Clips</h2>
-  {% for video in videos %}
+  {% for video in project.video_list %}
   <div class="row">
     <div class="col-md-4 card">
       <video class="card-img-top" src="/../static/vid/{{video.vid_name}}" controls controlsList="nodownload"></video>
@@ -27,5 +28,5 @@
     </div>
   </div>
   {% endfor %}
-{% endblock %}
 
+{% endblock %}

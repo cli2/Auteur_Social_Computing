@@ -12,12 +12,30 @@
 				<label for="exampleFormControlTextarea1">Description</label>
 				<textarea class="form-control" name="description" id="description" rows="3" placeholder="Video Description"></textarea>
 			</div>
-			<select name="projects">
-	          <option value="project1">project1</option>
-	          {% for project in projects %}
-	          <option value= "{{project.name}}">{{project.name}}</option>
-	          {% endfor %}        
-	        </select>
+			<select name="projects" id="drop-down" onchange="myFunction()">
+	          <!-- <option value="project1">project1</option> -->
+	          {% for project in current_user.project_list %}
+	          <option value= "{{project.name}}" id="{{project.id}}" >{{project.name}}</option>
+	          {% endfor %}
+						<option value="Not Selected" selected>Not Selected</option>
+	    </select>
+
+
+			<script type="text/javascript">
+			var e = document.getElementById("drop-down");
+			var id = e.options[e.selectedIndex].id;
+			document.getElementById("selected-project").innerHTML = id;
+			function myFunction(){
+				var e = document.getElementById("drop-down");
+				var id = e.options[e.selectedIndex].id;
+				document.getElementById("selected-project").innerHTML = id;
+			}
+
+			</script>
+			<div class="form-group" style="display:none;">
+				<label for="exampleFormControlTextarea1">Selected Project</label>
+				<textarea class="form-control" name="selected-project" id="selected-project" rows="1" placeholder="project selected"></textarea>
+			</div>
 			<div class="form-group">
 				<label for="file">Upload Video</label>
 				<input class="upload" type="file" name="file" accept="video/mp4,video/x-m4v,video/*">

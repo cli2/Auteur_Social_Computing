@@ -28,31 +28,29 @@
         <div class="panel-collapse collapse" id="collapseOne">
           <div class="panel-body">
             <!-- COMMENTS - MUST ADD FOR STATEMENT -->
+            {% for comment in video.comment_list %}
             <div class="chat-comment">
-              <p class="chat-name">Name</p>
-              <p class="chat-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.</p>
+              <p class="chat-name">{{comment.user_id}}</p>
+              <p class="chat-description">{{comment.content}}</p>
             </div>
+            {% endfor %}
             <div class="chat-comment">
-              <p class="chat-name">Name</p>
-              <p class="chat-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.</p>
-            </div>
-            <div class="chat-comment">
-              <p class="chat-name">Name</p>
-              <p class="chat-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.</p>
-            </div>
-            <div class="chat-comment">
-              <p class="chat-name">Name</p>
-              <p class="chat-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.</p>
+              <p class="chat-name">Test</p>
+              <p class="chat-description">Only this comment is not fetched from database</p>
             </div>
       </div>
 
       <!-- SEND -->
       <div class="panel-footer">
         <div class="input-group">
-          <input id="btn-input" type="text" class="form-control input-sm" placeholder="What do you think?" />
-          <span class="input-group-btn">
-            <button class="btn btn-warning btn-sm" id="btn-chat">Send</button>
-          </span>
+          <form class="" action="{{url_for('addcomment')}}" method="post">
+            <input id="btn-input" name='btn-input' type="text" class="form-control input-sm" placeholder="What do you think?" style="width:100%;"/>
+            <input type="text" name="videoid" id="videoid" value="{{video.id}}" style="display:none;">
+            <input type="text" name="videoname" id="videoname" value="{{video.title}}" style="display:none;">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-warning btn-sm" id="btn-chat">Send</button>
+            </span>
+          </form>
         </div>
       </div>
     </div>

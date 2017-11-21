@@ -45,7 +45,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user.is_authenticated %}
-                <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+                <li><a href="{{ url_for('logout') }}">Log Out {{current_user.username}}</a></li>
                 {% else %}
                 <li><a href="{{ url_for('login') }}">Log In</a></li>
                 {% endif %}
@@ -68,7 +68,7 @@
         This should not appear
     </p>
     {% endblock %}
-     
+
     {% endblock %}
 
     <!-- Optional JavaScript -->

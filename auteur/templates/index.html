@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block page_content %}
-
+{% if projects|length > 0 %}
 <div class="jumbotron jumbotron-fluid" style="background-image:url(../static/img/{{projects[-1].picture_name}})">
 	<div class="container">
 		<h1 class="display-3">{{projects[-1].name}}</h1>
@@ -11,6 +11,7 @@
     </p>
 	</div>
 </div>
+{% endif %}
 <div class="container">
   <h3>Recent Updates</h3>
   <div class="row">

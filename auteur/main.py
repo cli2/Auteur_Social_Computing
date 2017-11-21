@@ -119,6 +119,8 @@ def video(video_title):
     videos= Video.query.order_by(Video.date.desc()).all()
     return render_template('video.html',video=video,date=date,videos=videos)
 
+# add a comment
+
 
 #Create Project Page
 @app.route('/create')
@@ -162,7 +164,7 @@ def createproject():
             destination = "/".join([target, image_file])
             file.save(destination)
             # video_file=request.files['inputFile']
-            project=Project(picture_name=image_file,name=name,project_description=project_description)
+            project=Project(picture_name=image_file,name=name,project_description=project_description,user_id=current_user.id)
             db.session.add(project)
             db.session.commit()
             videos= Video.query.order_by(Video.date.desc()).all()
@@ -173,12 +175,11 @@ def createproject():
         else:
             flash('No selected file')
             return redirect('create')
-    
+
 
 #Upload Video -- Post
 @app.route('/uploadvideo', methods=['POST'])
 def uploadvideo():
-
     #Video Upload Store File
     target = os.path.join(APP_ROOT, 'static/vid/')
     for file in request.files.getlist("file"):
@@ -188,11 +189,29 @@ def uploadvideo():
 
     title=request.form['title']
     description=request.form['description']
-    video = Video(vid_name=video_file,title=title,description=description,date=datetime.now())
-    db.session.add(video)
-    db.session.commit()
-    return render_template('video.html', video=video)
-
+    project_id_this = request.form['selected-project']
+    if len(project_id_this)==0:
+        flash('Please select a project')
+        return render_template('upload.html')
+    else:
+        video = Video(vid_name=video_file,title=title,description=description,date=datetime.now(),user_id=current_user.id,project_id=project_id_this)
+        db.session.add(video)
+        db.session.commit()
+        return render_template('video.html', video=video)
+# add comment
+@app.route('/addcomment', methods=['POST'])
+def addcomment():
+    content=request.form['btn-input']
+    videoid=request.form['videoid']
+    videoname=request.form['videoname']
+    if len(content)==0:
+        flash('must fill in something')
+        return redirect('video/'+videoname)
+    else:
+        comment = Comment(content=content,user_id=current_user.id,video_id=videoid)
+        db.session.add(comment)
+        db.session.commit()
+        return redirect('video/'+videoname)
 #Playback Single Video
 # @app.route('/../static/vid/<filename>')
 # def send_vid(filename):
@@ -201,18 +220,43 @@ def uploadvideo():
 #############################
 ## Model Definitions Below ##
 #############################
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'),nullable=False)
+    video_id = db.Column(db.Integer,db.ForeignKey('videos.id'),nullable=False)
+    content = db.Column(db.String(64))
+    time = db.Column(db.Integer) ###how to implement this?
 
 class Video(db.Model):
     __tablename__ = 'videos'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer) # how to connect the foreign key of user???
-    project_id = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'),nullable=False) # how to connect the foreign key of user???
+    project_id = db.Column(db.Integer,db.ForeignKey('projects.id'),nullable=False)
     title = db.Column(db.String(64))
     comments = db.Column(db.String(64), unique=True, index=True)
     description = db.Column(db.String(64), nullable=True)
     likes = db.Column(db.Integer)
     vid_name = db.Column(db.String, default=None, nullable=True)
     date = db.Column(db.DateTime) # not in scope right now
+    comment_list = db.relationship('Comment',
+                               foreign_keys=[Comment.video_id],
+                               backref=db.backref('video', lazy='joined'),
+                               lazy='dynamic')
+class Project(db.Model):
+    __tablename__ = 'projects'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'),nullable=False)
+    name = db.Column(db.String(64))
+    date = db.Column(db.DateTime)
+    genre = db.Column(db.String(64)) ##or should we use Integer
+    project_description = db.Column(db.String(64))
+    #picture = db.Column(db.LargeBinary)
+    picture_name= db.Column(db.String, default=None, nullable=True)
+    video_list = db.relationship('Video',
+                               foreign_keys=[Video.project_id],
+                               backref=db.backref('project', lazy='joined'),
+                               lazy='dynamic')
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
@@ -220,6 +264,18 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(64), unique=True, index=True)
     username = db.Column(db.String(64), unique=True, index=True)
     password_hash = db.Column(db.String(128))
+    project_list = db.relationship('Project',
+                               foreign_keys=[Project.user_id],
+                               backref=db.backref('author', lazy='joined'),
+                               lazy='dynamic')
+    # video_list = db.relationship('Video',
+    #                            foreign_keys=[Video.user_id],
+    #                            backref=db.backref('user_video_list', lazy='joined'),
+    #                            lazy='dynamic')
+    # comment_list = db.relationship('Comment',
+    #                            foreign_keys=[Comment.user_id],
+    #                            backref=db.backref('user_comment_list', lazy='joined'),
+    #                            lazy='dynamic')
     @property
     def password(self):
         raise AttributeError('password is not a readable attribute')
@@ -231,24 +287,9 @@ class User(UserMixin, db.Model):
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-class Project(db.Model):
-    __tablename__ = 'projects'
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer)
-    name = db.Column(db.String(64))
-    date = db.Column(db.DateTime)
-    genre = db.Column(db.String(64)) ##or should we use Integer
-    project_description = db.Column(db.String(64))
-    #picture = db.Column(db.LargeBinary)
-    picture_name= db.Column(db.String, default=None, nullable=True)
 
-class Comment(db.Model):
-    __tablename__ = 'comments'
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer)
-    video_id = db.Column(db.Integer)
-    content = db.Column(db.String(64))
-    time = db.Column(db.Integer) ###how to implement this?
+
+
 
 #user loader for login
 @login_manager.user_loader
@@ -260,4 +301,4 @@ def load_user(user_id):
 ###########################################
 if __name__=='__main__':
     app.config['TEMPLATES_AUTO_RELOAD']=True
-    app.run(debug=True) 
+    app.run(debug=True)
