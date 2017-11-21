@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block page_content %}
   <!--h1>Upload a video</h1>
   <p class="important">
     Welcome on my awesome homepage
@@ -9,7 +9,7 @@
 <div class="container">
   <div class="row">
   	<div class="col-lg-6">
-  		<form name="uploadForm" id="uploadForm" method="POST" action="{{ url_for('createproject')}}" enctype="multipart/form-data" novalidate>
+  		<form name="createForm" id="createForm" method="POST" action="{{ url_for('createproject')}}" enctype="multipart/form-data" novalidate>
   			<div class="form-group">
   				<label for="exampleFormControlInput1">Project Name</label>
   				<input type="text" class="form-control" name="name" id="name" placeholder="Project Name">

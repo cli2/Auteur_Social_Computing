@@ -141,23 +141,39 @@ def create_db():
 #Create Project -- Post
 @app.route('/createproject', methods=['POST'])
 def createproject():
-
-    #Image Upload Store File
-    target = os.path.join(APP_ROOT, 'static/img/')
-    for file in request.files.getlist("file"):
-        image_file=file.filename
-        destination = "/".join([target, image_file])
-        file.save(destination)
-
     name=request.form['name']
     project_description=request.form['project_description']
-    # video_file=request.files['inputFile']
-    videos= Video.query.order_by(Video.date.desc()).all()
-    project=Project(picture_name=image_file,name=name,project_description=project_description)
-    db.session.add(project)
-    db.session.commit()
-    #flash('You have uploaded a video sucessfully')
-    return render_template('project.html', project=project,videos=videos)
+    #Image Upload Store File
+    target = os.path.join(APP_ROOT, 'static/img/')
+    #for file in request.files.getlist("file"):
+        #image_file=file.filename
+        #destination = "/".join([target, image_file])
+        #file.save(destination)
+    #project=Project(picture_name=image_file,name=name,project_description=project_description)
+    #db.session.add(project)
+    #db.session.commit()
+    #videos= Video.query.order_by(Video.date.desc()).all()
+            #flash('You have uploaded a video sucessfully')
+    #return render_template('project.html', project=project,videos=videos)
+    for file in request.files.getlist("file"):
+        file.seek(0, os.SEEK_END)
+        if not file.tell() == 0:
+            image_file=file.filename
+            destination = "/".join([target, image_file])
+            file.save(destination)
+            # video_file=request.files['inputFile']
+            project=Project(picture_name=image_file,name=name,project_description=project_description)
+            db.session.add(project)
+            db.session.commit()
+            videos= Video.query.order_by(Video.date.desc()).all()
+            #flash('You have uploaded a video sucessfully')
+            return render_template('project.html', project=project,videos=videos)
+            #flash('Please upload a image')
+            #return redirect(url_for('create'))
+        else:
+            flash('No selected file')
+            return redirect('create')
+    
 
 #Upload Video -- Post
 @app.route('/uploadvideo', methods=['POST'])

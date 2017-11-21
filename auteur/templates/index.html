@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block page_content %}
 
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid" style="background-image:url(../static/img/{{projects[-1].picture_name}})">
 	<div class="container">
-		<h1 class="display-3">Insert Best Project Name</h1>
-		<p class="lead">Insert description of the best project</p>
+		<h1 class="display-3">{{projects[-1].name}}</h1>
+		<!--p class="lead">Insert description of the best project</p-->
     <p class="lead">
       <a class="btn btn-primary btn-lg" href="#" role="button">View Project</a>
     </p>
