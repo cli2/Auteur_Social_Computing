@@ -12,21 +12,21 @@
     </div>
   </div>
 </div>
-<div class="container clips-container">
-  <h3>Project Clips</h3>
+<div class="container">
+  <h2>Clips</h2>
   {% for video in project.video_list %}
-  <div class="row clips-row">
+  <div class="row">
     <div class="col-md-4 card">
-      <video class="card-img-top" src="/../static/vid/{{video.vid_name}}#t=15"></video>
+      <video class="card-img-top" src="/../static/vid/{{video.vid_name}}" controls controlsList="nodownload"></video>
     </div>
     <div class="col-md-8">
-      <a class="proj-clips-link" href="{{url_for('video', video_title=video.title)}}">
-        <h4 class="proj-clips-title">{{video.title}}</h4>
+      <a href="{{url_for('video', video_title=video.title)}}">
+        <h3>{{video.title}}</h3>
       </a>
-        <p><small class="text-muted">Created on {{video.date.strftime('%B %d, %Y')}}</small></p>
-        <p>{{video.description}}</p>
+      <p><small>Uploaded on {{video.date.strftime('%B %d, %Y')}}</small></p>
+      <p>{{video.description}}</p>
     </div>
   </div>
   {% endfor %}
-</div>
+
 {% endblock %}

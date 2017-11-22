@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block page_content %}
+<div class="container">
+  <h1>Search Result</h1>
+</div>
+<div class="container">
+   <h3>Projects</h3>
+  {% for project in projects %}
+  <div class="row">
+    <div class="col-md-4 card">
+      <img class="card-img-top" src="/../static/img/{{project.picture_name}}" alt="Card image cap">
+    </div>
+    <div class="col-md-8">
+      <h4>{{project.name}}</h1>
+      <p><small class="text-muted">Uploaded by {{project.author_project.username}}</small></p>
+      <p>{{project.project_description}}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<div class="container clips-container">
+  <h3>Videos</h3>
+  {% for project in projects %}
+    {% for video in project.video_list %}
+    <div class="row clips-row">
+      <div class="col-md-4 card">
+        <video class="card-img-top" src="/../static/vid/{{video.vid_name}}#t=15"></video>
+      </div>
+      <div class="col-md-8">
+        <a class="proj-clips-link" href="{{url_for('video', video_title=video.title)}}">
+          <h4 class="proj-clips-title">{{video.title}}</h4>
+        </a>
+          <p><small class="text-muted">Created on {{video.date.strftime('%B %d, %Y')}}</small></p>
+          <p>{{video.description}}</p>
+      </div>
+    </div>
+    {% endfor %}
+  {% endfor %}
+</div>
+{% endblock %}

@@ -119,6 +119,11 @@ def video(video_title):
     videos= Video.query.order_by(Video.date.desc()).all()
     return render_template('video.html',video=video,date=date,videos=videos)
 
+@app.route('/search')
+def search():
+    projects=Project.query.order_by(Project.project_date.desc()).all()
+    return render_template('result.html',projects=projects)
+
 # add a comment
 
 
