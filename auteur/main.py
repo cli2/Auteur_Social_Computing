@@ -268,14 +268,14 @@ class User(UserMixin, db.Model):
                                foreign_keys=[Project.user_id],
                                backref=db.backref('author', lazy='joined'),
                                lazy='dynamic')
-    # video_list = db.relationship('Video',
-    #                            foreign_keys=[Video.user_id],
-    #                            backref=db.backref('user_video_list', lazy='joined'),
-    #                            lazy='dynamic')
-    # comment_list = db.relationship('Comment',
-    #                            foreign_keys=[Comment.user_id],
-    #                            backref=db.backref('user_comment_list', lazy='joined'),
-    #                            lazy='dynamic')
+    video_list = db.relationship('Video',
+                               foreign_keys=[Video.user_id],
+                               backref=db.backref('author_video', lazy='joined'),
+                               lazy='dynamic')
+    comment_list = db.relationship('Comment',
+                               foreign_keys=[Comment.user_id],
+                               backref=db.backref('author_comment', lazy='joined'),
+                               lazy='dynamic')
     @property
     def password(self):
         raise AttributeError('password is not a readable attribute')
