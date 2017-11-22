@@ -101,7 +101,7 @@ def register():
 #Landing Page, Playback Multiple Videos
 @app.route('/')
 def index():
-    projects=Project.query.order_by(Project.date.desc()).all()
+    projects=Project.query.order_by(Project.project_date.desc()).all()
     videos= Video.query.order_by(Video.date.desc()).all()
     return render_template('index.html',videos=videos,projects=projects)
 #Project Page
@@ -147,34 +147,29 @@ def createproject():
     project_description=request.form['project_description']
     #Image Upload Store File
     target = os.path.join(APP_ROOT, 'static/img/')
-    #for file in request.files.getlist("file"):
-        #image_file=file.filename
-        #destination = "/".join([target, image_file])
-        #file.save(destination)
-    #project=Project(picture_name=image_file,name=name,project_description=project_description)
-    #db.session.add(project)
-    #db.session.commit()
-    #videos= Video.query.order_by(Video.date.desc()).all()
-            #flash('You have uploaded a video sucessfully')
-    #return render_template('project.html', project=project,videos=videos)
     for file in request.files.getlist("file"):
-        file.seek(0, os.SEEK_END)
-        if not file.tell() == 0:
-            image_file=file.filename
-            destination = "/".join([target, image_file])
-            file.save(destination)
-            # video_file=request.files['inputFile']
-            project=Project(picture_name=image_file,name=name,project_description=project_description,user_id=current_user.id)
-            db.session.add(project)
-            db.session.commit()
-            videos= Video.query.order_by(Video.date.desc()).all()
-            #flash('You have uploaded a video sucessfully')
-            return render_template('project.html', project=project,videos=videos)
-            #flash('Please upload a image')
-            #return redirect(url_for('create'))
-        else:
-            flash('No selected file')
-            return redirect('create')
+        image_file=file.filename
+        destination = "/".join([target, image_file])
+        file.save(destination)
+    project=Project(picture_name=image_file,name=name,project_description=project_description,user_id=current_user.id,project_date=datetime.now())
+    db.session.add(project)
+    db.session.commit()
+    videos= Video.query.order_by(Video.date.desc()).all()
+    return render_template('project.html', project=project,videos=videos)
+    # for file in request.files.getlist("file"):
+    #     file.seek(0, os.SEEK_END)
+    #     if not file.tell() == 0:
+    #         image_file=file.filename
+    #         destination = "/".join([target, image_file])
+    #         file.save(destination)
+    #         project=Project(picture_name=image_file,name=name,project_description=project_description,user_id=current_user.id)
+    #         db.session.add(project)
+    #         db.session.commit()
+    #         videos= Video.query.order_by(Video.date.desc()).all()
+    #         return render_template('project.html', project=project,videos=videos)
+    #     else:
+    #         flash('No selected file')
+    #         return redirect('create')
 
 
 #Upload Video -- Post
@@ -248,7 +243,7 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'),nullable=False)
     name = db.Column(db.String(64))
-    date = db.Column(db.DateTime)
+    project_date = db.Column(db.DateTime)
     genre = db.Column(db.String(64)) ##or should we use Integer
     project_description = db.Column(db.String(64))
     #picture = db.Column(db.LargeBinary)
