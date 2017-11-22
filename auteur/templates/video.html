@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 {% block page_content %}
-<div class="container">
-  <div class="row">
+<div class="container video-container">
+  <div class="row video-row">
     <!-- VIDEO -->
-    <div class="col-md-9 card">
+    <div class="col-lg-9 card video-size">
       <video class="card-img-top" src="/../static/vid/{{video.vid_name}}" controls controlsList="nodownload"></video>
       <div class="card-body">
         <h4 class="card-title video-title">{{video.title}}</h4>
-        <p class="card-text"><small class="text-muted">Uploaded by {{video.author_video.username}} on {{video.date.strftime('%B %d, %Y')}} </small></p>
+        <p class="card-text"><small class="text-muted">Uploaded by {{video.author_video.username}} on {{video.date.strftime('%B %d, %Y')}}</small></p>
         <p class="card-text">{{video.description}}</p>
       </div>
     </div>
 
     <!-- CHAT -->
-    <div class="col-md-3 card">
+    <div class="col-lg-3 card chat-container">
       <div class="panel panel-primary">
         <!-- CHAT HEADING -->
         <div class="panel-heading" id="accordion">
@@ -28,29 +28,30 @@
         <div class="panel-collapse collapse" id="collapseOne">
           <div class="panel-body">
             <!-- COMMENTS - MUST ADD FOR STATEMENT -->
-            {% for comment in video.comment_list %}
-            <div class="chat-comment">
-              <p class="chat-name">{{comment.author_comment.username}}</p>
-              <p class="chat-description">{{comment.content}}</p>
+            <div class="chat">
+              {% for comment in video.comment_list %}
+              <div class="chat-comment">
+                <p class="chat-timestamp">00:00:00</p>
+                <p class="chat-name">{{comment.author_comment.username}}</p>
+                <p class="chat-description">{{comment.content}}</p>
+              </div>
+              {% endfor %}
             </div>
-            {% endfor %}
-            <div class="chat-comment">
-              <p class="chat-name">Test</p>
-              <p class="chat-description">Only this comment is not fetched from database</p>
-            </div>
-      </div>
+          </div>
 
-      <!-- SEND -->
-      <div class="panel-footer">
-        <div class="input-group">
-          <form class="" action="{{url_for('addcomment')}}" method="post">
-            <input id="btn-input" name='btn-input' type="text" class="form-control input-sm" placeholder="What do you think?" style="width:100%;"/>
-            <input type="text" name="videoid" id="videoid" value="{{video.id}}" style="display:none;">
-            <input type="text" name="videoname" id="videoname" value="{{video.title}}" style="display:none;">
-            <span class="input-group-btn">
-              <button type="submit" class="btn btn-warning btn-sm" id="btn-chat">Send</button>
-            </span>
-          </form>
+          <!-- SEND -->
+          <div class="panel-footer">
+            <div class="input-group">
+              <form class="comment-send-form" action="{{url_for('addcomment')}}" method="post">
+                <input id="btn-input" name='btn-input' type="text" class="form-control input-sm comment-send-input" placeholder="What do you think?">
+
+                <!-- Do I need the two following inputs? yes, the following lines are used to pass data into the route, not sure if it's the best way to do this, but it's working-->
+                <input type="text" name="videoid" id="videoid" value="{{video.id}}" style="display:none;">
+                <input type="text" name="videoname" id="videoname" value="{{video.title}}" style="display:none;">
+                <button type="submit" class="btn btn-warning btn-sm chat-submit" id="btn-chat">Send</button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -58,12 +59,12 @@
 </div>
 
 <!-- OTHER CLIPS -->
-<div class="container">
+<div class="container other-clips">
   <h3>Other Clips</h3>
   <div class="row">
     {% for v in videos %}
     <div class="col-md-3 card">
-      <img class="card-img-top" src="{{url_for('static',filename='img/video.png')}}" alt="Card image cap">
+      <video class="card-img-top" src="/../static/vid/{{v.vid_name}}#t=15"></video>
       <div class="card-body">
         <a href="{{url_for('video', video_title=v.title)}}">
           <h4 class="card-title">{{v.title}}</h4>

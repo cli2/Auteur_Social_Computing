@@ -1,32 +1,26 @@
 {% extends "base.html" %}
 
 {% block page_content %}
-  <!--h1>Upload a video</h1>
-  <p class="important">
-    Welcome on my awesome homepage
-  </p-->
-  <!--Try a form-->
-<div class="container">
-  <div class="row">
-  	<div class="col-lg-6">
-  		<form name="createForm" id="createForm" method="POST" action="{{ url_for('createproject')}}" enctype="multipart/form-data" novalidate>
-  			<div class="form-group">
-  				<label for="exampleFormControlInput1">Project Name</label>
-  				<input type="text" class="form-control" name="name" id="name" placeholder="Project Name">
-  			</div>
-  			<div class="form-group">
-  				<label for="exampleFormControlTextarea1">Description</label>
-  				<textarea class="form-control" name="project_description" id="project_description" rows="3"></textarea>
-  			</div>
-  			<div class="form-group">
-  				<label for="file">Upload Theme Picture</label>
-  				<input type="file" name="file" accept="image/gif,image/png,image/jpeg,image/bmp,image/webp,image/jpg,image/*">
-  			</div>
-  			<div class="form-group">
-          <button type="submit" class="btn btn-primary" id="sendMessageButton">Upload</button>
-        </div>
-  		</form>
-	   </div>
-  </div>
+<div class="row">
+	<div class="col-lg-6">
+    <h2 class="page-title">Create Project</h2>
+		<form name="createForm" id="createForm" method="POST" action="{{ url_for('createproject')}}" enctype="multipart/form-data" novalidate>
+			<div class="form-group">
+				<label for="exampleFormControlInput1">Name</label>
+				<input type="text" class="form-control" name="name" id="name" placeholder="Project Name">
+			</div>
+			<div class="form-group">
+				<label for="exampleFormControlTextarea1">Description</label>
+				<textarea class="form-control" name="project_description" id="project_description" rows="3" placeholder="Project Description"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="file">Upload Poster</label>
+				<input class="upload" type="file" name="file" accept="image/gif,image/png,image/jpeg,image/bmp,image/webp,image/jpg,image/*">
+			</div>
+			<div class="form-group">
+        <button type="submit" class="btn btn-primary upload-button" id="sendMessageButton">Create Project</button>
+      </div>
+		</form>
+   </div>
 </div>
 {% endblock %}

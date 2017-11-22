@@ -3,26 +3,37 @@ h1,h2,h3,h4,h5,h6,p{
 	font-family:'Raleway', sans-serif;
 }
 h1{
-	font-weight:600;
+	font-weight:900;
 	text-transform:uppercase;
 	color:#6B818C !important;
+	text-decoration-color:#6B818C !important;
 }
 h2,h3{
-	font-weight:500;
+	font-weight:700;
 	text-transform:uppercase;
 	color:#6B818C !important;
+	text-decoration-color:#6B818C !important;
 }
 h4,h5,h6{
 	font-weight:500;
-	color:#6B818C !important;
+	color:#323536 !important;
+	text-decoration-color:#323536 !important;
 }
 p{
 	font-weight:300;
 	color:#84828F !important;
+	text-decoration-color:#84828F !important;
+}
+a{
+	text-decoration-color:inherit !important;
 }
 input,textarea{
 	font-weight:300;
 	color:#84828F !important;
+}
+.page-title{
+	margin-top:2rem;
+	margin-left:2rem;
 }
 
 /* Navigation */
@@ -39,7 +50,7 @@ input,textarea{
 	margin-right: auto;
 }
 .search-box{
-	width:48vw !important;
+	width:40vw !important;
 }
 .search-form button{
 	border-color:#6B818C !important;
@@ -63,6 +74,7 @@ input,textarea{
 
 /* Landing Page */
 .jumbotron{
+	height:55vh;
 	background-image:url("../img/projectbg.jpg");
 	background-size:cover;
 }
@@ -84,6 +96,14 @@ input,textarea{
 .container{
 	margin-top:2rem;
 	margin-bottom:2rem;
+	margin-left:4rem;
+	margin-right:4rem;
+}
+.recent-updates-row{
+	margin-top:1rem;
+}
+.popular-projects-row{
+	margin-top:1rem;
 }
 .card{
 	border:none;
@@ -93,7 +113,6 @@ input,textarea{
 }
 .card-title:hover{
 	text-decoration:underline;
-	text-decoration-color:#6B818C !important;
 }
 .card-text{
 	color:#84828F !important;
@@ -102,7 +121,39 @@ input,textarea{
 	font-style:italic;
 }
 
-/* Upload Form */
+/* Login */
+.checkbox label{
+	font-size:1rem;
+	font-weight:300;
+	color:#84828F !important;
+	text-transform: none;
+	margin-top:-1rem;
+}
+input[value="Log In"]{
+	background-color: #6B818C !important;
+	color: #FFFFFF !important;
+	cursor:pointer;
+	margin-top:1rem;
+}
+.new-user{
+	margin-top:1rem;
+	margin-left:2rem;
+}
+.new-user a{
+	font-style:italic;
+	text-decoration:underline;
+	color:#6B818C !important;
+}
+
+/* Register */
+input[value="Register"]{
+	background-color: #6B818C !important;
+	color: #FFFFFF !important;
+	cursor:pointer;
+	margin-top:1rem;
+}
+
+/* Upload & Create Project Forms */
 form{
 	margin-top:2rem;
 	margin-left:2rem;
@@ -124,14 +175,53 @@ input::placeholder, textarea::placeholder{
 .form-group{
 	margin-bottom:2rem;
 }
+.form-group select{
+	display:block;
+	font-family:'Raleway', sans-serif;
+	font-weight:200;
+	font-size:1rem;
+}
 .upload{
 	display:block;
 	font-family:'Raleway', sans-serif;
 	font-weight:200;
 	color:#84828F !important;
 }
+.upload-button{
+	background-color: #6B818C !important;
+	color: #FFFFFF !important;
+	cursor:pointer;
+	border:none;
+	outline:0;
+}
+.upload-button:active, .upload-button:focus, .upload-button:hover, .upload-button:visited, .upload-button:after, .upload-button:before {
+	border:none;
+	outline:0;
+}
+
+/* Project Page */
+.project-container{
+	margin-left:5vw;
+}
+.clips-container{
+	margin-left:5vw;
+}
+.clips-row{
+	margin-top:2rem;
+}
+.proj-clips-title{
+	margin-bottom:0.1rem;
+}
 
 /* Video Page */
+.video-container{
+	max-width:90vw;
+	margin:2rem 5vw;
+	padding:0;
+}
+.video-size{
+	max-width:60vw;
+}
 .video-title{
 	font-size:1.75rem;
 	text-transform:uppercase;
@@ -140,8 +230,15 @@ input::placeholder, textarea::placeholder{
 .text-muted{
 	font-style: italic;
 }
+.other-clips{
+	margin-left:4vw;
+}
 
 /* Video Chat */
+.chat-container{
+	min-width:30vw;
+	padding:0;
+}
 .panel{
 	background-color:#6B818C !important;
 }
@@ -175,44 +272,65 @@ input::placeholder, textarea::placeholder{
 .chat-comment{
 	padding:0.5rem;
 }
+.chat-timestamp{
+	display:inline-block;
+	font-family:'Raleway', sans-serif;
+	font-weight:100;
+	color:#FFFFFF !important;
+	margin-bottom:0;
+}
 .chat-name{
+	display:inline-block;
 	font-family:'Raleway', sans-serif;
 	font-size:1.1rem;
 	font-weight:100;
 	text-transform:uppercase;
 	color:#FFFFFF !important;
 	margin-bottom:0;
+	padding-left:0.5rem;
 }
 .chat-description{
 	font-family:'Raleway', sans-serif;
 	font-weight:100;
 	font-style:italic;
 	color:#FFFFFF !important;
+	margin-left: 5rem;
 }
 .panel-footer{
 	border-top: 0.25rem #FFFFFF solid;
 }
-.panel-footer .input-group input{
-	background-color:#FFFFFF !important;
+
+.comment-send-form{
+	margin:0;
 }
-.panel-footer .input-group input::placeholder{
+.comment-send-input{
+	display:inline !important;
+	margin:0 !important;
+	width:24vw !important;
+	background-color:#FFFFFF !important;
+	border-radius:4px !important;
+}
+.comment-send-input::placeholder{
 	font-family:'Raleway', sans-serif;
 	font-weight:100;
 	font-style: italic;
 	color:#6B818C !important;
 }
-.input-group-btn button{
+.chat-submit{
+	display:inline !important;
+	width:5vw !important;
+	padding-bottom: 6px;
+	padding-top: 6px;
+	margin:0;
 	font-family:'Raleway', sans-serif;
 	font-weight:100;
+	font-size:1rem;
 	text-transform:uppercase;
 	color:#FFFFFF !important;
 	background-color:#6B818C !important;
 	border:none;
+	cursor: pointer;
 }
-
-
-
-
 
 
 

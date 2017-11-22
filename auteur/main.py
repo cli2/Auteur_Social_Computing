@@ -266,7 +266,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     project_list = db.relationship('Project',
                                foreign_keys=[Project.user_id],
-                               backref=db.backref('author', lazy='joined'),
+                               backref=db.backref('author_project', lazy='joined'),
                                lazy='dynamic')
     video_list = db.relationship('Video',
                                foreign_keys=[Video.user_id],

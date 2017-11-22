@@ -1,38 +1,39 @@
 {% extends "base.html" %}
 
 {% block page_content %}
+
 {% if projects|length > 0 %}
 <div class="jumbotron jumbotron-fluid" style="background-image:url(../static/img/{{projects[-1].picture_name}})">
-	<div class="container">
-		<h1 class="display-3">{{projects[-1].name}}</h1>
-		<!--p class="lead">Insert description of the best project</p-->
+  <div class="container">
+    <h1 class="display-3">{{projects[-1].name}}</h1>
+    <!--p class="lead">Insert description of the best project</p-->
     <p class="lead">
       <a class="btn btn-primary btn-lg" href="#" role="button">View Project</a>
     </p>
-	</div>
+  </div>
 </div>
 {% endif %}
-<div class="container">
+<div class="container recent-updates-container">
   <h3>Recent Updates</h3>
-  <div class="row">
+  <div class="row recent-updates-row">
     {% for v in videos %}
-    <div class="col-md-3 card">
-      <video class="card-img-top" src="/../static/vid/{{v.vid_name}}"></video>
+    <div class="col-md-4 card">
+      <video class="card-img-top" src="/../static/vid/{{v.vid_name}}#t=15"></video>
       <div class="card-body">
         <a href="{{url_for('video', video_title=v.title)}}">
           <h4 class="card-title">{{v.title}}</h4>
         </a>
-        <p class="card-text card-italic">{{v.description}}</p>
+        <p class="card-text card-italic text-truncate">{{v.description}}</p>
       </div>
     </div>
     {% endfor %}
   </div>
 </div>
-<div class="container">
+<div class="container popular-project-container">
   <h3>Popular Projects</h3>
-  <div class="row">
+  <div class="row popular-projects-row">
     {% for project in projects %}
-    <div class="col-md-3 card">
+    <div class="col-md-4 card">
       <img class="card-img-top" src="/../static/img/{{project.picture_name}}" alt="Card image cap">
       <div class="card-body">
         <a href="{{url_for('project', project_name=project.name)}}">

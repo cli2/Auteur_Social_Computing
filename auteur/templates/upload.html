@@ -3,6 +3,7 @@
 {% block page_content %}
 <div class="row">
 	<div class="col-lg-6">
+		<h2 class="page-title">Upload Video</h2>
 		<form name="uploadForm" id="uploadForm" method="POST" action="{{ url_for('uploadvideo')}}" enctype="multipart/form-data" novalidate>
 			<div class="form-group">
 				<label for="exampleFormControlInput1">Title</label>
@@ -12,36 +13,42 @@
 				<label for="exampleFormControlTextarea1">Description</label>
 				<textarea class="form-control" name="description" id="description" rows="3" placeholder="Video Description"></textarea>
 			</div>
-			<select name="projects" id="drop-down" onchange="myFunction()">
-	          <!-- <option value="project1">project1</option> -->
-	          {% for project in current_user.project_list %}
-	          <option value= "{{project.name}}" id="{{project.id}}" >{{project.name}}</option>
-	          {% endfor %}
-						<option value="Not Selected" selected>Not Selected</option>
-	    </select>
+			<div class="form-group">
+				<label for="">Project</label>
 
+				<!-- Dropdown -->
+				<select name="projects" id="drop-down" onchange="myFunction()">
+	          	{% for project in current_user.project_list %}
+	          	<option value= "{{project.name}}" id="{{project.id}}" >{{project.name}}</option>
+	          	{% endfor %}
+				<option value="Not Selected" selected>-- Select Project --</option>
+	    		</select>
 
-			<script type="text/javascript">
-			var e = document.getElementById("drop-down");
-			var id = e.options[e.selectedIndex].id;
-			document.getElementById("selected-project").innerHTML = id;
-			function myFunction(){
-				var e = document.getElementById("drop-down");
-				var id = e.options[e.selectedIndex].id;
-				document.getElementById("selected-project").innerHTML = id;
-			}
+	    		<!-- Javascript for Dropdown -->
+	    		<script type="text/javascript">
+					var e = document.getElementById("drop-down");
+					var id = e.options[e.selectedIndex].id;
+					document.getElementById("selected-project").innerHTML = id;
+					function myFunction(){
+						var e = document.getElementById("drop-down");
+						var id = e.options[e.selectedIndex].id;
+						document.getElementById("selected-project").innerHTML = id;
+					}
+				</script>
+	        </div>
 
-			</script>
-			<div class="form-group" style="display:none;">
+	        <!-- Believe this code is unnecessary -->
+	        <div class="form-group" style="display:none;">
 				<label for="exampleFormControlTextarea1">Selected Project</label>
 				<textarea class="form-control" name="selected-project" id="selected-project" rows="1" placeholder="project selected"></textarea>
 			</div>
+
 			<div class="form-group">
-				<label for="file">Upload Video</label>
+				<label for="file">Video Upload</label>
 				<input class="upload" type="file" name="file" accept="video/mp4,video/x-m4v,video/*">
 			</div>
 			<div class="form-group">
-        <button type="submit" class="btn btn-primary" id="sendMessageButton">Upload</button>
+        <button type="submit" class="btn btn-primary upload-button" id="sendMessageButton">Upload</button>
       </div>
 		</form>
   </div>
