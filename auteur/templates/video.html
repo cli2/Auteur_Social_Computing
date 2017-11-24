@@ -28,7 +28,7 @@
         <div class="panel-collapse collapse" id="collapseOne">
           <div class="panel-body">
             <!-- COMMENTS - MUST ADD FOR STATEMENT -->
-            <div class="chat">
+            <div class="chat" id="display_info">
               {% for comment in video.comment_list %}
               <div class="chat-comment">
                 <p class="chat-timestamp">00:00:00</p>
@@ -42,14 +42,69 @@
           <!-- SEND -->
           <div class="panel-footer">
             <div class="input-group">
+              <!-- working but refreshing pages -->
               <form class="comment-send-form" action="{{url_for('addcomment')}}" method="post">
                 <input id="btn-input" name='btn-input' type="text" class="form-control input-sm comment-send-input" placeholder="What do you think?">
-
-                <!-- Do I need the two following inputs? yes, the following lines are used to pass data into the route, not sure if it's the best way to do this, but it's working-->
                 <input type="text" name="videoid" id="videoid" value="{{video.id}}" style="display:none;">
                 <input type="text" name="videoname" id="videoname" value="{{video.title}}" style="display:none;">
                 <button type="submit" class="btn btn-warning btn-sm chat-submit" id="btn-chat">Send</button>
               </form>
+              <!-- test for ajax -->
+              <!-- <form class="comment-send-form">
+                <input id="btn-input" name='btn-input' type="text" class="form-control input-sm comment-send-input" placeholder="What do you think?">
+                <input type="text" name="videoid" id="videoid" value="{{video.id}}" style="display:none;">
+                <input type="text" name="videoname" id="videoname" value="{{video.title}}" style="display:none;">
+                <button class="btn btn-warning btn-sm chat-submit" id="btn-chat">Send</button>
+                <script>
+                  $("#btn-chat").click(function(){
+                      var name = $('#videoname');
+                      var videoid_ = $('#videoid');
+                      var content = $('#btn-input');
+                      $.ajax({
+                        url: "/addcomment",
+                        type: "post",
+                        data: {
+                          videoname: name,
+                          videoid: videoid_,
+                          cmt_content: content,
+                        },
+                        success: function(response) {
+                          $("#display_info").html(response);
+                          console.log(respone);
+                        },
+                        error: function(xhr) {
+                          console.log('error');
+                        }
+                      });
+                  });
+                </script>
+              </form> -->
+              <!-- test for php -->
+              <!-- <form class="comment-send-form">
+                <input id="btn-input" name='btn-input' type="text" class="form-control input-sm comment-send-input" placeholder="What do you think?">
+                <input type="text" name="videoid" id="videoid" value="{{video.id}}" style="display:none;">
+                <input type="text" name="userid" id="userid" value="{{userid}}" style="display:none;">
+                <button class="btn btn-warning btn-sm chat-submit" id="btn-chat" onclick="refreshdata()">Send</button>
+                <script type="text/javascript">
+                  function refreshdata(){
+                    var comment_ = $('#btn-input');
+                    var videoid_ = $('#videoid');
+                    var userid_ = $('#userid');
+                    $.ajax({
+                    type: 'post',
+                    url: 'loaddata.php',
+                    data: {
+                     comment:comment_,
+                     videoid:videoid_,
+                     userid:userid_,
+                    },
+                    success: function (response) {
+                     $( '#display_info' ).html(response);
+                    }});
+                  }
+
+                </script>
+              </form> -->
             </div>
           </div>
         </div>

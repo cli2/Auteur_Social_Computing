@@ -111,20 +111,13 @@ def project(project_name):
     videos= Video.query.order_by(Video.date.desc()).all()
     return render_template('project.html',project=project,videos=videos)
 
-#Video Page
-@app.route('/video/<video_title>')
-def video(video_title):
-    video= Video.query.filter_by(title=video_title).one()
-    date=video.date.strftime('%B %d, %Y ')
-    videos= Video.query.order_by(Video.date.desc()).all()
-    return render_template('video.html',video=video,date=date,videos=videos)
+
 
 @app.route('/search')
 def search():
     projects=Project.query.order_by(Project.project_date.desc()).all()
     return render_template('result.html',projects=projects)
 
-# add a comment
 
 
 #Create Project Page
@@ -177,6 +170,15 @@ def createproject():
     #         return redirect('create')
 
 
+#Video Page
+@app.route('/video/<video_title>')
+def video(video_title):
+    video= Video.query.filter_by(title=video_title).one()
+    date=video.date.strftime('%B %d, %Y ')
+    videos= Video.query.order_by(Video.date.desc()).all()
+    # userid = current_user.id
+    return render_template('video.html',video=video,date=date,videos=videos)
+
 #Upload Video -- Post
 @app.route('/uploadvideo', methods=['POST'])
 def uploadvideo():
@@ -198,20 +200,27 @@ def uploadvideo():
         db.session.add(video)
         db.session.commit()
         return render_template('video.html', video=video)
+
 # add comment
 @app.route('/addcomment', methods=['POST'])
 def addcomment():
+    # content=request.args.get('cmt_content')
+    # videoid=request.args.get('videoid')
+    # videoname = request.args.get('videoname')
     content=request.form['btn-input']
     videoid=request.form['videoid']
-    videoname=request.form['videoname']
+    videoname = request.form['videoname']
+    video= Video.query.filter_by(title=videoname).one()
+    date=video.date.strftime('%B %d, %Y ')
+    videos= Video.query.order_by(Video.date.desc()).all()
     if len(content)==0:
         flash('must fill in something')
-        return redirect('video/'+videoname)
+        return render_template('video.html',video=video,date=date,videos=videos)
     else:
         comment = Comment(content=content,user_id=current_user.id,video_id=videoid)
         db.session.add(comment)
         db.session.commit()
-        return redirect('video/'+videoname)
+        return render_template('video.html',video=video,date=date,videos=videos)
 #Playback Single Video
 # @app.route('/../static/vid/<filename>')
 # def send_vid(filename):
@@ -301,4 +310,4 @@ def load_user(user_id):
 ###########################################
 if __name__=='__main__':
     app.config['TEMPLATES_AUTO_RELOAD']=True
-    app.run(debug=True)
+    app.run(debug=True,threaded=True)
