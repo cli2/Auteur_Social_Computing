@@ -200,11 +200,18 @@ input::placeholder, textarea::placeholder{
 }
 
 /* Project Page */
+.proj-main-heading{
+	margin-bottom:0.1rem;
+}
 .project-container{
 	margin-left:5vw;
 }
 .clips-container{
 	margin-left:5vw;
+}
+.proj-clips-heading{
+	margin-top:4rem;
+	margin-bottom:0;
 }
 .clips-row{
 	margin-top:2rem;

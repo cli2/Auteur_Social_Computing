@@ -4,7 +4,7 @@
   <div class="row video-row">
     <!-- VIDEO -->
     <div class="col-lg-9 card video-size">
-      <video class="card-img-top" src="/../static/vid/{{video.vid_name}}" controls controlsList="nodownload"></video>
+      <video class="main-video card-img-top" src="/../static/vid/{{video.vid_name}}" controls controlsList="nodownload"></video>
       <div class="card-body">
         <h4 class="card-title video-title">{{video.title}}</h4>
         <p class="card-text"><small class="text-muted">Uploaded by {{video.author_video.username}} on {{video.date.strftime('%B %d, %Y')}}</small></p>
@@ -38,7 +38,6 @@
               {% endfor %}
             </div>
           </div>
-
           <!-- SEND -->
           <div class="panel-footer">
             <div class="input-group">
@@ -49,6 +48,11 @@
                 <input type="text" name="videoname" id="videoname" value="{{video.title}}" style="display:none;">
                 <button type="submit" class="btn btn-warning btn-sm chat-submit" id="btn-chat">Send</button>
               </form>
+              <script type="text/javascript">
+                $('.comment-send-input').focus(function () {
+                  var vidTime = $('.main-video')[0].currentTime;
+                });
+              </script>
               <!-- test for ajax -->
               <!-- <form class="comment-send-form">
                 <input id="btn-input" name='btn-input' type="text" class="form-control input-sm comment-send-input" placeholder="What do you think?">
