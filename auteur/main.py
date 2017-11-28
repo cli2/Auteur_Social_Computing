@@ -111,14 +111,13 @@ def project(project_name):
     videos= Video.query.order_by(Video.date.desc()).all()
     return render_template('project.html',project=project,videos=videos)
 
-
-
-@app.route('/search')
+@app.route('/search', methods=['POST'])
 def search():
-    projects=Project.query.order_by(Project.project_date.desc()).all()
+    searchcontent = request.form['searchcontent']
+    projects=Project.query.filter(Project.name.contains(searchcontent)).all()
+    if len(projects)==0:
+        return render_template('noresult.html')
     return render_template('result.html',projects=projects)
-
-
 
 #Create Project Page
 @app.route('/create')
@@ -203,6 +202,7 @@ def uploadvideo():
 
 # add comment
 @app.route('/addcomment', methods=['POST'])
+@login_required
 def addcomment():
     # content=request.args.get('cmt_content')
     # videoid=request.args.get('videoid')
@@ -210,6 +210,7 @@ def addcomment():
     content=request.form['btn-input']
     videoid=request.form['videoid']
     videoname = request.form['videoname']
+    commenttime = request.form['timestamp']
     video= Video.query.filter_by(title=videoname).one()
     date=video.date.strftime('%B %d, %Y ')
     videos= Video.query.order_by(Video.date.desc()).all()
@@ -217,7 +218,7 @@ def addcomment():
         flash('must fill in something')
         return render_template('video.html',video=video,date=date,videos=videos)
     else:
-        comment = Comment(content=content,user_id=current_user.id,video_id=videoid)
+        comment = Comment(content=content,user_id=current_user.id,video_id=videoid,time=commenttime)
         db.session.add(comment)
         db.session.commit()
         return render_template('video.html',video=video,date=date,videos=videos)
@@ -235,7 +236,7 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'),nullable=False)
     video_id = db.Column(db.Integer,db.ForeignKey('videos.id'),nullable=False)
     content = db.Column(db.String(64))
-    time = db.Column(db.Integer) ###how to implement this?
+    time = db.Column(db.String(64))
 
 class Video(db.Model):
     __tablename__ = 'videos'

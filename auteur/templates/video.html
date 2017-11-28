@@ -29,9 +29,9 @@
           <div class="panel-body">
             <!-- COMMENTS - MUST ADD FOR STATEMENT -->
             <div class="chat" id="display_info">
-              {% for comment in video.comment_list %}
+              {% for comment in video.comment_list|sort(attribute='time') %}
               <div class="chat-comment">
-                <p class="chat-timestamp">00:00:00</p>
+                <p class="chat-timestamp">{{comment.time}}</p>
                 <p class="chat-name">{{comment.author_comment.username}}</p>
                 <p class="chat-description">{{comment.content}}</p>
               </div>
@@ -46,11 +46,24 @@
                 <input id="btn-input" name='btn-input' type="text" class="form-control input-sm comment-send-input" placeholder="What do you think?">
                 <input type="text" name="videoid" id="videoid" value="{{video.id}}" style="display:none;">
                 <input type="text" name="videoname" id="videoname" value="{{video.title}}" style="display:none;">
+                <input type="text" name="timestamp" id="timestamp" value="00:00:00" style="display:none;">
                 <button type="submit" class="btn btn-warning btn-sm chat-submit" id="btn-chat">Send</button>
               </form>
               <script type="text/javascript">
+                function secondsToHms(d) {
+                  d = Number(d);
+
+                  var h = Math.floor(d / 3600);
+                  var m = Math.floor(d % 3600 / 60);
+                  var s = Math.floor(d % 3600 % 60);
+
+                  return ('0' + h).slice(-2) + ":" + ('0' + m).slice(-2) + ":" + ('0' + s).slice(-2);
+                }
                 $('.comment-send-input').focus(function () {
                   var vidTime = $('.main-video')[0].currentTime;
+                  var vidTimeStr = secondsToHms(vidTime);
+                  $('#timestamp').val(vidTimeStr)
+                  console.log(vidTimeStr);
                 });
               </script>
               <!-- test for ajax -->
