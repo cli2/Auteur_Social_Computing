@@ -11,7 +11,7 @@
         <p class="card-text">{{video.description}}</p>
       </div>
     </div>
-
+    <div id="hidden-username" style="display: none">{{video.author_video.username}}</div>
     <!-- CHAT -->
     <div class="col-lg-3 card chat-container">
       <div class="panel panel-primary">
@@ -42,7 +42,7 @@
           <div class="panel-footer">
             <div class="input-group">
               <!-- working but refreshing pages -->
-              <form class="comment-send-form" action="{{url_for('addcomment')}}" method="post">
+              <!-- <form class="comment-send-form" action="{{url_for('addcomment')}}" method="post">
                 <input id="btn-input" name='btn-input' type="text" class="form-control input-sm comment-send-input" placeholder="What do you think?">
                 <input type="text" name="videoid" id="videoid" value="{{video.id}}" style="display:none;">
                 <input type="text" name="videoname" id="videoname" value="{{video.title}}" style="display:none;">
@@ -65,37 +65,91 @@
                   $('#timestamp').val(vidTimeStr)
                   console.log(vidTimeStr);
                 });
-              </script>
+              </script> -->
               <!-- test for ajax -->
-              <!-- <form class="comment-send-form">
+
+              <form id="commentForm" class="comment-send-form" >
                 <input id="btn-input" name='btn-input' type="text" class="form-control input-sm comment-send-input" placeholder="What do you think?">
                 <input type="text" name="videoid" id="videoid" value="{{video.id}}" style="display:none;">
                 <input type="text" name="videoname" id="videoname" value="{{video.title}}" style="display:none;">
-                <button class="btn btn-warning btn-sm chat-submit" id="btn-chat">Send</button>
-                <script>
-                  $("#btn-chat").click(function(){
-                      var name = $('#videoname');
-                      var videoid_ = $('#videoid');
-                      var content = $('#btn-input');
-                      $.ajax({
-                        url: "/addcomment",
-                        type: "post",
-                        data: {
-                          videoname: name,
-                          videoid: videoid_,
-                          cmt_content: content,
-                        },
-                        success: function(response) {
-                          $("#display_info").html(response);
-                          console.log(respone);
-                        },
-                        error: function(xhr) {
-                          console.log('error');
-                        }
-                      });
+                <input type="text" name="timestamp" id="timestamp" value="00:00:00" style="display:none;">
+                <button type="button" class="btn btn-warning btn-sm chat-submit" id="btn-chat">Send</button>
+                <script type="text/javascript">
+                  function secondsToHms(d) {
+                    d = Number(d);
+
+                    var h = Math.floor(d / 3600);
+                    var m = Math.floor(d % 3600 / 60);
+                    var s = Math.floor(d % 3600 % 60);
+
+                    return ('0' + h).slice(-2) + ":" + ('0' + m).slice(-2) + ":" + ('0' + s).slice(-2);
+                  }
+                  $('.comment-send-input').focus(function () {
+                    var vidTime = $('.main-video')[0].currentTime;
+                    var vidTimeStr = secondsToHms(vidTime);
+                    $('#timestamp').val(vidTimeStr)
                   });
                 </script>
-              </form> -->
+                <script>
+                   $("#commentForm").submit(false);
+                  $("#btn-chat").click(function(e){
+                    var name = $('#videoname').val();
+                      var videoid = $('#videoid').val();
+                      var content = $('#btn-input').val();
+                      var time = $('#timestamp').val();
+
+                      $.ajax({
+                        url: "/api/addcomment",
+                        type: "post",
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                          videoname: name,
+                          videoid: videoid,
+                          comment: content,
+                          timestamp: time
+                        }),
+                        success: function(response) {
+                          var username = $("#hidden-username").html();
+                          var doms = $(".chat-comment");
+                          var domList = Array.from(doms);
+                          var pre;
+                          var inserted = false;
+                          var html = `<div class="chat-comment">
+                              <p class="chat-timestamp">${time}</p>
+                              <p class="chat-name">${username} <i style="font-size:0.7em; color:rgb(200,200,200);">[New Comment]</i></p>
+                              <p class="chat-description">${content}</p>
+                            </div>`
+                          if (domList.length == 0) {
+                            $("#display_info").append(html);
+                          } else{
+                            domList.forEach(function(item,index){
+                            var t = $(item).find('.chat-timestamp');
+                            console.log(t.html());
+                              if (t.html() > time && !inserted) {
+                                pre.after(html);
+                                pre[0].scrollIntoView({block: "center", inline: "nearest"});
+                                inserted = true;
+                              } else {
+                                pre = $(item);
+                              }
+
+                            })
+                            if (!inserted){
+                              pre.after(html);
+                              pre[0].scrollIntoView({block: "center", inline: "nearest"});
+                              inserted = true;
+                            }
+                          }
+                          $('#btn-input').val("");
+                        },
+                        error: function(xhr) {
+                          alert("comment can not be null");
+                        }
+                      });
+                  })
+                </script>
+              </form>
               <!-- test for php -->
               <!-- <form class="comment-send-form">
                 <input id="btn-input" name='btn-input' type="text" class="form-control input-sm comment-send-input" placeholder="What do you think?">

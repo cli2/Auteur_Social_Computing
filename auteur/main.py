@@ -14,7 +14,7 @@ from wtforms import StringField, SubmitField, SelectField, BooleanField, Passwor
 from wtforms.validators import Required, Length, Email, Regexp, EqualTo
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from flask_sslify import SSLify
-
+from flask import json
 #############################
 ##          Config         ##
 #############################
@@ -199,6 +199,35 @@ def uploadvideo():
         db.session.add(video)
         db.session.commit()
         return render_template('video.html', video=video)
+#add comment by ajax
+@app.route('/api/addcomment', methods=['POST'])
+@login_required
+def apiaddcomment():
+    data = request.data
+    dataDict = json.loads(data)
+    videoname = dataDict["videoname"]
+    videoid = dataDict["videoid"]
+    content = dataDict["comment"]
+    commenttime = dataDict["timestamp"]
+    video= Video.query.filter_by(title=videoname).one()
+    date=video.date.strftime('%B %d, %Y ')
+    if len(content)==0:
+        response = app.response_class(
+            status = 400,
+            mimetype='application/json'
+        )
+        return json.dumps({'success':False}), 400, {'ContentType':'application/json'}
+    else:
+        print(current_user.id)
+        comment = Comment(content=content,user_id=current_user.id,video_id=videoid,time=commenttime)
+        db.session.add(comment)
+        db.session.commit()
+        response = app.response_class(
+            status = 200,
+            mimetype='application/json'
+        )
+        return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+
 
 # add comment
 @app.route('/addcomment', methods=['POST'])
