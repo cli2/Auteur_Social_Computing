@@ -189,13 +189,14 @@ def uploadvideo():
         file.save(destination)
 
     title=request.form['title']
+    feedback=request.form['feedback']
     description=request.form['description']
     project_id_this = request.form['selected-project']
     if len(project_id_this)==0:
         flash('Please select a project')
         return render_template('upload.html')
     else:
-        video = Video(vid_name=video_file,title=title,description=description,date=datetime.now(),user_id=current_user.id,project_id=project_id_this)
+        video = Video(vid_name=video_file,title=title,description=description,feedback=feedback,date=datetime.now(),user_id=current_user.id,project_id=project_id_this)
         db.session.add(video)
         db.session.commit()
         return render_template('video.html', video=video)
@@ -274,10 +275,11 @@ class Video(db.Model):
     project_id = db.Column(db.Integer,db.ForeignKey('projects.id'),nullable=False)
     title = db.Column(db.String(64))
     comments = db.Column(db.String(64), unique=True, index=True)
-    description = db.Column(db.String(64), nullable=True)
+    description = db.Column(db.String(120), nullable=True)
     likes = db.Column(db.Integer)
     vid_name = db.Column(db.String, default=None, nullable=True)
     date = db.Column(db.DateTime) # not in scope right now
+    feedback=db.Column(db.String(120),nullable=True)
     comment_list = db.relationship('Comment',
                                foreign_keys=[Comment.video_id],
                                backref=db.backref('video', lazy='joined'),
@@ -289,7 +291,7 @@ class Project(db.Model):
     name = db.Column(db.String(64))
     project_date = db.Column(db.DateTime)
     genre = db.Column(db.String(64)) ##or should we use Integer
-    project_description = db.Column(db.String(64))
+    project_description = db.Column(db.String(120))
     #picture = db.Column(db.LargeBinary)
     picture_name= db.Column(db.String, default=None, nullable=True)
     video_list = db.relationship('Video',

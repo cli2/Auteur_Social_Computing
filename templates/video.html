@@ -9,6 +9,8 @@
         <h4 class="card-title video-title">{{video.title}}</h4>
         <p class="card-text"><small class="text-muted">Uploaded by {{video.author_video.username}} on {{video.date.strftime('%B %d, %Y')}}</small></p>
         <p class="card-text">{{video.description}}</p>
+        <h5 class="card-title">Feedback I want</h5>
+        <p class="card-text">{{video.feedback}}</p>
       </div>
     </div>
     <div id="hidden-username" style="display: none">{{video.author_video.username}}</div>

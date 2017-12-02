@@ -11,7 +11,9 @@
       <img class="card-img-top" src="/../static/img/{{project.picture_name}}" alt="Card image cap">
     </div>
     <div class="col-md-8">
-      <h4>{{project.name}}</h1>
+      <a class="proj-clips-link" href="{{url_for('project', project_name=project.name)}}">
+        <h4>{{project.name}}</h4>
+      </a>
       <p><small class="text-muted">Uploaded by {{project.author_project.username}}</small></p>
       <p>{{project.project_description}}</p>
     </div>
@@ -30,8 +32,8 @@
         <a class="proj-clips-link" href="{{url_for('video', video_title=video.title)}}">
           <h4 class="proj-clips-title">{{video.title}}</h4>
         </a>
-          <p><small class="text-muted">Created on {{video.date.strftime('%B %d, %Y')}}</small></p>
-          <p>{{video.description}}</p>
+        <p><small class="text-muted">Created on {{video.date.strftime('%B %d, %Y')}}</small></p>
+        <p>{{video.description}}</p>
       </div>
     </div>
     {% endfor %}

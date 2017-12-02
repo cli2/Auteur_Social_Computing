@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block page_content %}
-
-{% if projects|length > 0 %}
-<div class="jumbotron jumbotron-fluid" style="background-image:url(../static/img/{{projects[0].picture_name}})">
+<div class="jumbotron jumbotron-fluid">
+  {% if projects|length > 0 %}
+<!--div class="jumbotron jumbotron-fluid" style="background-image:url(../static/img/{{projects[0].picture_name}})"-->
   <div class="container">
     <h1 class="display-3">{{projects[0].name}}</h1>
     <!--p class="lead">Insert description of the best project</p-->
@@ -11,8 +11,8 @@
       <a class="btn btn-primary btn-lg" href="{{url_for('project', project_name=projects[0].name)}}" role="button">View Project</a>
     </p>
   </div>
+  {% endif %}
 </div>
-{% endif %}
 <div class="container recent-updates-container">
   <h3>Recent Updates</h3>
   <div class="row recent-updates-row">
@@ -23,7 +23,10 @@
         <a href="{{url_for('video', video_title=v.title)}}">
           <h4 class="card-title">{{v.title}}</h4>
         </a>
-        <p class="card-text card-italic text-truncate">{{v.description}}</p>
+        <!--p class="card-text card-italic text-truncate">{{v.description}}</p-->
+        <a href="{{url_for('project',project_name=v.project.name)}}">
+          <p class='card-text card-italic text-truncate'>{{v.project.name}}</p>
+        </a>
       </div>
     </div>
     {% endfor %}
