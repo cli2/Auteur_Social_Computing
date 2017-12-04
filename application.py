@@ -21,7 +21,7 @@ from flask import json
 #reload(sys)
 #sys.setdefaultencoding('latin-1')
 basedir = os.path.abspath(os.path.dirname(__file__))
-app = Flask(__name__) #Pass the __name__ argument to the Flask application constructor
+application = app = Flask(__name__) #Pass the __name__ argument to the Flask application constructor
 manager = Manager(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
