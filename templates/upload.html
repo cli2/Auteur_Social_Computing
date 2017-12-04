@@ -3,15 +3,19 @@
 {% block page_content %}
 <div class="row">
 	<div class="col-lg-6">
-		<h2 class="page-title">Upload Video</h2>
+		<h2 class="page-title">Upload Clip</h2>
 		<form name="uploadForm" id="uploadForm" method="POST" action="{{ url_for('uploadvideo')}}" enctype="multipart/form-data" novalidate>
 			<div class="form-group">
 				<label for="exampleFormControlInput1">Title</label>
-				<input type="text" class="form-control" name="title" id="title" placeholder="Video Title">
+				<input type="text" class="form-control" name="title" id="title" placeholder="Clip Title">
 			</div>
 			<div class="form-group">
 				<label for="exampleFormControlTextarea1">Description</label>
-				<textarea class="form-control" name="description" id="description" rows="3" placeholder="Video Description"></textarea>
+				<textarea class="form-control" name="description" id="description" rows="3" placeholder="Clip Description"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="exampleFormControlTextarea1">Feedback</label>
+				<textarea class="form-control" name="feedback" id="feedback" rows="3" placeholder="Feedback Needed on Clip"></textarea>
 			</div>
 			<div class="form-group">
 				<label for="">Project</label>
@@ -36,10 +40,6 @@
 					}
 				</script>
 	        </div>
-	       	<div class="form-group">
-				<label for="exampleFormControlTextarea1">Feedback I need</label>
-				<textarea class="form-control" name="feedback" id="feedback" rows="3" placeholder="What type of feedback do you want to get?"></textarea>
-			</div>
 	        <!-- Believe this code is unnecessary -->
 	        <div class="form-group" style="display:none;">
 				<label for="exampleFormControlTextarea1">Selected Project</label>
@@ -47,7 +47,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="file">Video Upload</label>
+				<label for="file">Upload Clip</label>
 				<input class="upload" type="file" name="file" accept="video/mp4,video/x-m4v,video/*">
 			</div>
 			<div class="form-group">

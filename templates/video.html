@@ -7,9 +7,9 @@
       <video class="main-video card-img-top" src="/../static/vid/{{video.vid_name}}" controls controlsList="nodownload"></video>
       <div class="card-body">
         <h4 class="card-title video-title">{{video.title}}</h4>
-        <p class="card-text"><small class="text-muted">Uploaded by {{video.author_video.username}} on {{video.date.strftime('%B %d, %Y')}}</small></p>
+        <p class="card-text video-date"><small class="text-muted">Uploaded by {{video.author_video.username}} on {{video.date.strftime('%B %d, %Y')}}</small></p>
         <p class="card-text">{{video.description}}</p>
-        <h5 class="card-title">Feedback I want</h5>
+        <h5 class="card-title feedback-title">Feedback</h5>
         <p class="card-text">{{video.feedback}}</p>
       </div>
     </div>
@@ -27,7 +27,7 @@
           </div>
         </div>
         <!-- CHAT COLLAPSE -->
-        <div class="panel-collapse collapse" id="collapseOne">
+        <div class="panel-collapse collapse show" id="collapseOne">
           <div class="panel-body">
             <!-- COMMENTS - MUST ADD FOR STATEMENT -->
             <div class="chat" id="display_info">
@@ -77,6 +77,22 @@
                 <input type="text" name="timestamp" id="timestamp" value="00:00:00" style="display:none;">
                 <button type="button" class="btn btn-warning btn-sm chat-submit" id="btn-chat">Send</button>
                 <script type="text/javascript">
+                setInterval(function() {
+                  var vidTime = $('.main-video')[0].currentTime;
+                  var vidTimeStr = secondsToHms(vidTime);
+
+
+                  var doms = $(".chat-comment");
+                  var domList = Array.from(doms);
+                  domList.forEach(function(item,index){
+                  var t = $(item).find('.chat-timestamp');
+                  console.log(t.html());
+                    if (t.html() == vidTimeStr && !inserted) {
+                      t.scrollIntoView({block: "center", inline: "nearest"});
+                    }
+                  })
+                }, 2000);
+
                   function secondsToHms(d) {
                     d = Number(d);
 
@@ -187,12 +203,12 @@
 </div>
 
 <!-- OTHER CLIPS -->
-<div class="container other-clips">
+<div class="container other-clips thumbnail-container">
   <h3>Other Clips</h3>
   <div class="row">
     {% for v in videos %}
     <div class="col-md-3 card">
-      <video class="card-img-top" src="/../static/vid/{{v.vid_name}}#t=15"></video>
+      <video class="card-img-top video-thumbnail" src="/../static/vid/{{v.vid_name}}#t=15"></video>
       <div class="card-body">
         <a href="{{url_for('video', video_title=v.title)}}">
           <h4 class="card-title">{{v.title}}</h4>

@@ -13,12 +13,12 @@
   </div>
   {% endif %}
 </div>
-<div class="container recent-updates-container">
+<div class="container recent-updates-container thumbnail-container">
   <h3>Recent Updates</h3>
   <div class="row recent-updates-row">
     {% for v in videos %}
     <div class="col-md-3 card">
-      <video class="card-img-top" src="/../static/vid/{{v.vid_name}}#t=15"></video>
+      <video class="card-img-top video-thumbnail" src="/../static/vid/{{v.vid_name}}#t=15"></video>
       <div class="card-body">
         <a href="{{url_for('video', video_title=v.title)}}">
           <h4 class="card-title">{{v.title}}</h4>

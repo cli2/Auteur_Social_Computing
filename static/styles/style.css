@@ -36,6 +36,15 @@ input,textarea{
 	margin-left:2rem;
 }
 
+.video-thumbnail {
+	height:25vh;
+    width: auto;
+    background-color:#6B818C;
+}
+.thumbnail-container{
+	min-width:92vw;
+}
+
 /* Navigation */
 .navbar-brand{
 	font-family:'Lobster Two', cursive;
@@ -229,10 +238,26 @@ input::placeholder, textarea::placeholder{
 .video-size{
 	max-width:60vw;
 }
+.main-video{
+	height:65vh;
+	background-color:#6B818C;
+}
 .video-title{
 	font-size:1.75rem;
 	text-transform:uppercase;
 	margin-bottom:0.1rem;
+}
+.video-date{
+	margin-bottom:0.75rem;
+}
+.feedback-title{
+	font-size:1.25rem;
+	text-transform:uppercase;
+	margin-bottom:0.25rem;
+	margin-top:2rem;
+}
+.video-title:hover, .feedback-title:hover{
+	text-decoration: none;
 }
 .text-muted{
 	font-style: italic;
@@ -270,10 +295,10 @@ input::placeholder, textarea::placeholder{
 	background-color: transparent;
 }
 .panel-collapse{
-	height:50vh;
+	height:55vh;
 }
 .panel-body{
-	height:50vh;
+	height:55vh;
 	overflow-y: scroll;
 }
 .chat-comment{

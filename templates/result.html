@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block page_content %}
 <div class="container">
-  <h1>Search Result</h1>
+  <h1>Search Results</h1>
 </div>
 <div class="container">
    <h3>Projects</h3>
@@ -21,12 +21,12 @@
   {% endfor %}
 </div>
 <div class="container">
-  <h3>Videos</h3>
+  <h3>Clips</h3>
   {% for project in projects %}
     {% for video in project.video_list %}
     <div class="row clips-row">
       <div class="col-md-4 card">
-        <video class="card-img-top" src="/../static/vid/{{video.vid_name}}#t=15"></video>
+        <video class="card-img-top video-thumbnail" src="/../static/vid/{{video.vid_name}}#t=15"></video>
       </div>
       <div class="col-md-8">
         <a class="proj-clips-link" href="{{url_for('video', video_title=video.title)}}">
