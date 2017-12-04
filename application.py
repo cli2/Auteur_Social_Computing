@@ -132,11 +132,11 @@ def upload():
     return render_template('upload.html')
 
 #Create Database
-@app.route('/create_db')
-def create_db():
-    db.drop_all()
-    db.create_all()
-    return '<h1>Database Created</h1>'
+# @app.route('/create_db')
+# def create_db():
+#     db.drop_all()
+#     db.create_all()
+#     return '<h1>Database Created</h1>'
 #Create Project -- Post
 @app.route('/createproject', methods=['POST'])
 def createproject():
